@@ -13,11 +13,11 @@ Convert::Color::ScaleModels - converts between color numbers from scale model pa
 
 =head1 VERSION
 
-Version 0.01_01
+Version 0.01_02
 
 =cut
 
-our $VERSION = '0.01_01';
+our $VERSION = '0.01_02';
 
 
 =head1 SYNOPSIS
@@ -29,16 +29,17 @@ This module converts between color numbers from scale model paint manufacturers 
     my $color = Convert::Color::ScaleModels->new();
 
     my $revell_flesh_num = $color->convert('61', 'humbrol', 'revell');
-    print "manufacturer = $color->{man}\n";
-    print "color name = $color->{name}\n";
-    print "color number = $color->{num}\n";
-    print "color number (return value from method) = $revell_flesh_num\n";
+    print "manufacturer = $color->{man}\n";     # 'revell'
+    print "color name = $color->{name}\n";      # 'flesh matt'          
+    print "color number = $color->{num}\n";     # 35
+    print "color number (return value from method) = $revell_flesh_num\n";  # also 35
 
 The color number values are taken from Humbrol's own conversion tables (L<http://humbrol.com/convert-to-humbrol/conversion-tables/>).
 
 =head1 SUBROUTINES/METHODS
 
 =head2 new
+
 Creates new color object. Each object carries a color name (C<name>), color number (C<num>) and manufacturer name (C<man>), undefined at object creation.
     
     my $color = Convert::Color::ScaleModels->new();    
@@ -58,6 +59,7 @@ sub new {
 }
 
 =head2 convert
+
 Converts between color numbers from scale model paint manufacturers (Humbrol, Revell, Tamiya). The object properties (C<name>, C<num> and C<man>) are set after conversion.
 For instance, to convert color number 61 ('flesh matt') from Humbrol to the corresponding value from Revell (if available), use
 

@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               Convert-Color-ScaleModels
-version:            0.01_01
+version:            0.01_02
 abstract:           converts between color numbers from scale model paint manufacturers (Humbrol, Revell, Tamiya)
 author:
     - Ari Constancio <affc@cpan.org>

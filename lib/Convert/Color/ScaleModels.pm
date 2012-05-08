@@ -13,11 +13,11 @@ Convert::Color::ScaleModels - converts between color numbers from scale model pa
 
 =head1 VERSION
 
-Version 0.01_02
+Version 0.01
 
 =cut
 
-our $VERSION = '0.01_02';
+our $VERSION = '0.01';
 
 
 =head1 SYNOPSIS
@@ -86,7 +86,8 @@ sub convert {
         my ($newcolor, $cname);
         foreach my $name ( keys %$names_colors ) {
             if ($man1 =~ /humbrol/i) {
-                next unless defined($names_colors->{$name}->[0]) and $colornum eq $names_colors->{$name}->[0];
+                next unless defined($names_colors->{$name}->[0]) 
+                    and $colornum eq $names_colors->{$name}->[0];
                 if ($man2 =~ /revell/i) {
                     $newcolor = $names_colors->{$name}->[1];
                 } else {    # $man2 matches 'tamiya'
@@ -94,7 +95,8 @@ sub convert {
                 }
                 $cname = $name;
             } elsif ($man1 =~ /revell/i) {
-                next unless defined($names_colors->{$name}->[1]) and $colornum eq $names_colors->{$name}->[1];
+                next unless defined($names_colors->{$name}->[1]) 
+                    and $colornum eq $names_colors->{$name}->[1];
                 if ($man2 =~ /humbrol/i) {
                     $newcolor = $names_colors->{$name}->[0];
                 } else {    # $man2 matches 'tamiya'
@@ -102,7 +104,8 @@ sub convert {
                 }
                 $cname = $name;
             } else {    # $man1 matches 'tamiya'
-                next unless defined($names_colors->{$name}->[2]) and $colornum eq $names_colors->{$name}->[2];
+                next unless defined($names_colors->{$name}->[2]) 
+                    and $colornum eq $names_colors->{$name}->[2];
                 if ($man2 =~ /humbrol/i) {
                     $newcolor = $names_colors->{$name}->[0];
                 } else {    # $man2 matches 'revell'

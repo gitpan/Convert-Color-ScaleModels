@@ -13,11 +13,11 @@ Convert::Color::ScaleModels - converts between color numbers from scale model pa
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 
 =head1 SYNOPSIS
@@ -71,11 +71,8 @@ sub convert {
     my $self = shift;
     my ($colornum, $man1, $man2) = @_;
     
-    if ($man1 !~ /(humbrol|revell|tamiya)/i 
-        or $man2 !~ /(humbrol|revell|tamiya)/i) {
-        # manufacturer unknown
-        croak "Manufacturer unknown!" and return undef;
-    }
+    return undef unless (_valid_man($man1) 
+        && _valid_man($man2));
 
     if ($man1 eq $man2) {
         # no conversion needed
@@ -122,6 +119,46 @@ sub convert {
     return $self->{num};
 }
 
+=head2 name
+
+Returns color name, given color number and manufacturer. Otherwise, returns C<undef>.
+
+    print $color->name('65', 'humbrol');    # 'aircraft blue matt'
+
+=cut
+
+sub name {
+    my $self = shift;
+    my ($cnum, $man) = @_;
+
+    return undef unless _valid_man($man);
+    
+    foreach my $name ( keys %$names_colors ) {
+        if ($man =~ /humbrol/i) {
+            return $name if defined($names_colors->{$name}->[0])
+                 and $cnum eq $names_colors->{$name}->[0];
+        } elsif ($man =~ /revell/i) {
+            return $name if defined($names_colors->{$name}->[1])
+                 and $cnum eq $names_colors->{$name}->[1];
+        } else {    # $man matches 'tamiya'
+            return $name if defined($names_colors->{$name}->[2])
+                 and $cnum eq $names_colors->{$name}->[2];
+        }
+    }
+    return undef;
+}
+
+sub _valid_man {
+    my $man = shift;
+    if ($man =~ /(humbrol|revell|tamiya)/i) {
+        return 1;
+    } else {
+        # manufacturer unknown
+        croak "Manufacturer unknown: $man";
+        return undef;
+    }
+}
+
 =head1 AUTHOR
 
 Ari Constancio, C<< <affc at cpan.org> >>
@@ -160,10 +197,6 @@ L<http://cpanratings.perl.org/d/Convert-Color-ScaleModels>
 L<http://search.cpan.org/dist/Convert-Color-ScaleModels/>
 
 =back
-
-
-=head1 ACKNOWLEDGEMENTS
-
 
 =head1 LICENSE AND COPYRIGHT
 

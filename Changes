@@ -1,5 +1,8 @@
 Revision history for Convert-Color-ScaleModels
 
+0.02    2012-05-08
+        'name' method to get color name.
+
 0.01    2012-05-08
         Initial version.
 
